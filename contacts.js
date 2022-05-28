@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("fs/promises");
 const path = require("path");
 const { nanoid } = require("nanoid");
 
@@ -13,16 +13,22 @@ console.log("contactsPath", contactsPath);
 
 const getAll = async () => {
   const data = await fs.readFile(contactsPath);
-  console.log("first", JSON.parse(data));
+  return JSON.parse(data);
 };
-getAll();
-// function getContactById(contactId) {
-//   // ...твой код
-// }
-
-// function removeContact(contactId) {
-//   // ...твой код
-// }
+const getContactById = async (contactId) => {
+  const contacts = await getAll();
+  const nededBook = contacts.find(
+    (contact) => String(contact.id) === String(contactId)
+  );
+  if (!nededBook) {
+    return null;
+  }
+  return nededBook;
+};
+getContactById(2);
+function removeContact(contactId) {
+  // ...твой код
+}
 
 // function addContact(name, email, phone) {
 //   // ...твой код
