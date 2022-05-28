@@ -1,3 +1,7 @@
+const yargs = require("yargs");
+
+const { hideBin } = require("yargs/helpers");
+
 const {
   getList,
   getContactById,
@@ -5,40 +9,34 @@ const {
   removeContact,
 } = require("./contacts");
 
-const yargs = require("yargs");
-
-const { hideBin } = require("yargs/helpers");
-
-function invokeAction({ action, id, name, email, phone }) {
+const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
     case "list":
-      const contacts = getList();
+      const contacts = await getList();
       console.table(contacts);
       break;
 
     case "get":
-      const contact = getContactById(id);
+      const contact = await getContactById(id);
       console.log(contact);
       break;
 
     case "add":
-      const addedContact = addContact(name, email, phone);
+      const addedContact = await addContact(name, email, phone);
       console.log("addedContact", addedContact);
       break;
 
     case "remove":
-      const removedContact = removeContact(id);
+      const removedContact = await removeContact(id);
       console.log("removedContact", removedContact);
       break;
 
     default:
       console.warn("\x1B[31m Unknown action type!");
   }
-}
+};
 
 const arr = hideBin(process.argv);
-
-console.log("arr", arr);
 
 const { argv } = yargs(arr);
 
