@@ -32,6 +32,7 @@ const removeContact = async (contactId) => {
   fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
   return removedContact;
 };
+
 const addContact = async (name, email, phone) => {
   const contacts = await getList();
   const newContact = {
@@ -40,4 +41,16 @@ const addContact = async (name, email, phone) => {
     email,
     phone,
   };
+  contacts.push(newContact);
+  fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+  return newContact;
 };
+
+const func = {
+  getList,
+  getContactById,
+  removeContact,
+  addContact,
+};
+
+module.exports = func;
