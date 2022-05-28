@@ -21,5 +21,8 @@
   "homepage": "https://github.com/IronHedgehog/nodeJs1-1#readme",
   "devDependencies": {
     "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "nanoid": "^3.3.4"
   }
 }
